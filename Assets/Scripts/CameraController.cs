@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static int sharedValue = 0;
     private float dumping = 1.5f;
     private Vector2 offset = new (2f, 1f);
     private bool isLeft;
@@ -78,5 +79,12 @@ public class CameraController : MonoBehaviour
             Mathf.Clamp(transform.position.y, bottomLimit, upperLimit),
             transform.position.z
         );
+        if (sharedValue == 1) {
+            var camTransform = GetComponent<Transform>();
+            var originPos = camTransform.localPosition;
+            float shakeDur = 1f, shakeAmount = 0.1f, decreaseFact = 1.5f;
+
+            camTransform.localPosition = originPos + UnityEngine.Random.insideUnitSphere * shakeAmount;
+        }
     }
 }
